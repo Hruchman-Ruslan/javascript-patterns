@@ -1,0 +1,16 @@
+{
+	"name": "javascript-templates",
+	"version": "1.0.0",
+	"main": "app.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "live-server"
+	},
+	"keywords": [],
+	"author": "Hruchman-Ruslan",
+	"license": "ISC",
+	"description": "his project covers JavaScript concepts such as custom constructors, classes, object and array literals, and introduces data structures like Set and Map.",
+	"devDependencies": {
+		"live-server": "^1.2.2"
+	}
+}
