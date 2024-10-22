@@ -1,11 +1,21 @@
 'use strict'
 
-const num1 = '10'
-const num2 = 10
+// function construction
 
-const num3 = 10
-const num4 = 5
+function User(name, age, country) {
+	this.name = name
+	this.age = age
+	this.country = country
 
-// console.log('check', num1 ==== num2) // Error
-console.log('check', num1 > num2)
-console.log('check', num3 > num4)
+	this.setNewAge = function (newAge) {
+		this.age = newAge
+	}
+
+	this.showAge = function () {
+		console.log('The new age is ' + this.age)
+	}
+}
+
+const firstObject = new User('Ruslan', 31, 'Ukraine')
+firstObject.setNewAge(32)
+firstObject.showAge()
