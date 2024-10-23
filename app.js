@@ -33,5 +33,27 @@ class User {
 	}
 }
 
-const firstObject = new User('Ruslan', 31, 'Ukraine', 'qwe123qwe@gmail.com')
-console.log('Is legal age', User.isLegalAge(firstObject.age))
+class SubUser extends User {
+	constructor(name, age, country, email, fruit) {
+		super(name, age, country, email)
+		this.favoriteFruits = fruit
+		this.isValidUser = false
+	}
+
+	checkIsValidUser() {
+		this.isValidUser = this.email !== '' && this.name !== ''
+		if (this.isValidUser) {
+			console.log('User is valid')
+		}
+	}
+}
+
+const firstObject = new SubUser(
+	'Ruslan',
+	31,
+	'Ukraine',
+	'qwe123qwe@gmail.com',
+	'banana'
+)
+firstObject.checkIsValidUser()
+console.log(firstObject)
