@@ -23,18 +23,21 @@
 // class constructor
 
 class User {
-	constructor(name, age, country) {
+	#email
+
+	constructor(name, age, country, email) {
 		this.name = name
 		this.age = age
 		this.country = country
+		this.#email = email
 	}
 
-	get country() {
-		return this._country
+	get email() {
+		return this.#email
 	}
 
-	set country(newCountry) {
-		this._country = newCountry
+	set email(newEmail) {
+		this.#email = newEmail
 	}
 
 	setNewAge(newAge) {
@@ -43,8 +46,8 @@ class User {
 	}
 }
 
-const firstObject = new User('Ruslan', 31, 'Ukraine')
-console.log('getter', firstObject.country)
-firstObject.country = 'USA'
-console.log('setter', firstObject.country)
-// firstObject.setNewAge(32)
+const firstObject = new User('Ruslan', 31, 'Ukraine', 'qwe123qwe@gmail.com')
+
+console.log('Can i get email', firstObject.email)
+firstObject.email = 'otherEmail@gmail.com'
+console.log('Can i get email', firstObject.email)
