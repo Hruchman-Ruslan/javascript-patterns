@@ -1,27 +1,5 @@
 'use strict'
 
-// function constructor
-
-// function User(name, age, country) {
-// 	this.name = name
-// 	this.age = age
-// 	this.country = country
-
-// 	this.setNewAge = function (newAge) {
-// 		this.age = newAge
-// 	}
-
-// 	this.showAge = function () {
-// 		console.log('The new age is ' + this.age)
-// 	}
-// }
-
-// const firstObject = new User('Ruslan', 31, 'Ukraine')
-// firstObject.setNewAge(32)
-// firstObject.showAge()
-
-// class constructor
-
 class User {
 	#email
 
@@ -30,6 +8,15 @@ class User {
 		this.age = age
 		this.country = country
 		this.#email = email
+	}
+
+	static right = {
+		admin: true,
+		user: false,
+	}
+
+	static isLegalAge(age) {
+		return age >= 18
 	}
 
 	get email() {
@@ -47,7 +34,4 @@ class User {
 }
 
 const firstObject = new User('Ruslan', 31, 'Ukraine', 'qwe123qwe@gmail.com')
-
-console.log('Can i get email', firstObject.email)
-firstObject.email = 'otherEmail@gmail.com'
-console.log('Can i get email', firstObject.email)
+console.log('Is legal age', User.isLegalAge(firstObject.age))
