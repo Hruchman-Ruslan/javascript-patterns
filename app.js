@@ -57,3 +57,27 @@ const firstObject = new SubUser(
 )
 firstObject.checkIsValidUser()
 console.log(firstObject)
+
+// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| set, map
+
+const set = new Set()
+
+const john = { name: 'John' }
+const mary = { name: 'Mary' }
+const peter = { name: 'Peter' }
+
+set.add(john)
+set.add(mary)
+set.add(peter)
+set.add(john)
+set.add(mary)
+set.add(peter)
+set.add(john)
+set.add(mary)
+set.add(peter)
+
+console.log(set)
+console.log(set.has(peter)) // true
+set.delete(peter)
+console.log(set)
+console.log(set.has(peter)) // false
