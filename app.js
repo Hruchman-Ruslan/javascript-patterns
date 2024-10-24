@@ -58,26 +58,47 @@ const firstObject = new SubUser(
 firstObject.checkIsValidUser()
 console.log(firstObject)
 
-// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| set, map
+// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| set
 
-const set = new Set()
+// const set = new Set()
 
-const john = { name: 'John' }
-const mary = { name: 'Mary' }
-const peter = { name: 'Peter' }
+// const john = { name: 'John' }
+// const mary = { name: 'Mary' }
+// const peter = { name: 'Peter' }
 
-set.add(john)
-set.add(mary)
-set.add(peter)
-set.add(john)
-set.add(mary)
-set.add(peter)
-set.add(john)
-set.add(mary)
-set.add(peter)
+// set.add(john)
+// set.add(mary)
+// set.add(peter)
+// set.add(john)
+// set.add(mary)
+// set.add(peter)
+// set.add(john)
+// set.add(mary)
+// set.add(peter)
 
-console.log(set)
-console.log(set.has(peter)) // true
-set.delete(peter)
-console.log(set)
-console.log(set.has(peter)) // false
+// console.log(set)
+// console.log(set.has(peter)) // true
+// set.delete(peter)
+// console.log(set)
+// console.log(set.has(peter)) // false
+
+// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||  map
+
+const map = new Map([
+	['someString', 'someValue'],
+	[1, true],
+])
+
+console.log(map)
+
+map.set('1', 'str1') // add
+map.set('1', 'str2') // edit
+map.set('2', 'str1') // add new key
+console.log(map.has(1)) // true
+console.log(map.has('someString')) // true
+console.log(map.has('someStr')) // false
+map.delete('someString') // delete key someString type string
+map.delete(1) // delete key 1 type number
+console.log(map)
+map.clear() // clear all
+console.log(map)
