@@ -12,3 +12,17 @@ function outerFunction(outerVariable) {
 const closure = outerFunction('outerValue')
 
 closure('innerValue')
+
+// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+function firstFunc() {
+	return function () {
+		return 'second function'
+	}
+}
+
+const result = firstFunc()
+
+console.log('result', result)
+
+console.log(result())
