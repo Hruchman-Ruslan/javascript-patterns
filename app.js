@@ -28,4 +28,25 @@ const myModule = (function () {
 // console.log(myModule.privateData) // Outputs undefined (private data is not accessible)
 // myModule.privateFunction() // Throws an error (private functions are not accessible)
 
-export default myModule
+// export default myModule
+
+// Code reuse, inheritance templates
+
+// Parent class
+
+class Animal {
+	constructor(name) {
+		this.name = name
+	}
+
+	// Method of the parent class
+	speak() {
+		console.log(`${this.name} makes a sound`)
+	}
+
+	getAnimalName() {
+		console.log('name is', this.name)
+	}
+}
+
+export default Animal
