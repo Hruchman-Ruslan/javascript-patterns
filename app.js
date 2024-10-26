@@ -18,3 +18,43 @@ function funcScope(someArg) {
 }
 
 funcScope() // calling the function
+
+// Namespace pattern
+
+const FinancialApp = {
+	Accounts: {
+		getAllAccounts: function () {
+			// Function to get all accounts
+		},
+		addAccount: function (account) {
+			console.log('New account:', account) // logs the new account
+		},
+		// other functions for account operations
+		Transactions: {
+			getAllTransactions: function () {
+				// Function to get all transactions
+			},
+			addTransaction: function (transaction) {
+				// Function to add a new transaction
+			},
+			// other functions for transaction operations
+		},
+		Reports: {
+			generateReport: function () {
+				// Function to generate a report
+			},
+			// other functions for report operations
+		},
+	},
+}
+
+// Using the namespace
+FinancialApp.Accounts.addAccount({ name: 'Ruslan' })
+FinancialApp.Accounts.Transactions.addTransaction(newTransaction)
+FinancialApp.Accounts.Reports.generateReport()
+
+function addAccount() {
+	console.log('separate function')
+}
+
+addAccount() // No Error
