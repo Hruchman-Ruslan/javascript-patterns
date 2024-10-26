@@ -1,52 +1,20 @@
 'use strict'
 
-function outerFunction(outerVariable) {
-	function innerFunction(innerVariable) {
-		console.log('outerVariable', outerVariable)
-		console.log('innerValue', innerVariable)
+// Global scope
+const globalScope = 'value' // global variable, accessible throughout the code
+
+function funcScope(someArg) {
+	// Function scope (funcScope)
+	let value = 'test' // variable, visible only inside funcScope
+	console.log('func test', test) // this will throw an error because test is not declared in this block yet
+
+	if (someArg) {
+		// Block scope (if block)
+		const test = 1 // variable, visible only inside this if block
+		value = globalScope // changing the value of 'value' to the value of the global variable globalScope
 	}
 
-	return innerFunction
+	return value // returns the value of 'value' defined in the function scope
 }
 
-const closure = outerFunction('outerValue')
-
-closure('innerValue')
-
-// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||| currying
-
-function firstFunc() {
-	return function () {
-		return 'second function'
-	}
-}
-
-const result = firstFunc()
-
-console.log('result', result)
-
-console.log(result())
-
-// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||| memoization
-
-function getVideoInfo(videoId) {
-	const cache = {}
-
-	return function (videoId) {
-		if (!cache[videoId]) {
-			console.log('Requesting server for video information with ID:', videoId)
-			cache[videoId] = {
-				title: 'Video Title',
-				duration: 'Video Duration',
-				author: 'Video Author',
-			}
-		}
-		return cache[videoId]
-	}
-}
-
-const memoizedGetVideoInfo = getVideoInfo()
-
-console.log(memoizedGetVideoInfo(123))
-
-console.log(memoizedGetVideoInfo(123))
+funcScope() // calling the function
