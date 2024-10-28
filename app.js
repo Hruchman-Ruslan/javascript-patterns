@@ -1,52 +1,45 @@
 'use strict'
 
-// Module pattern
+const Singleton = (function () {
+	let instance
 
-const myModule = (function () {
-	// Private data and functions, not accessible from outside
-	const privateData = 'This is private data'
+	function init() {
+		// Private method and variable of the class
+		function privateMethod() {
+			console.log('This is a private method')
+		}
 
-	function privateFunction() {
-		console.log('This is a private function')
+		let privateVariable = 'This is a private variable.'
+
+		return {
+			// Public method and variable of the class
+			publicMethod: function () {
+				privateMethod()
+			},
+			publicVariable: 'This is a public variable.',
+			getPrivateVariable: function () {
+				return privateVariable
+			},
+		}
 	}
 
-	// Public interface (methods and properties accessible from outside)
 	return {
-		publicMethod: function () {
-			// Using private functions or data
-			privateFunction()
-			console.log('This is a public method')
+		// Method to get the single instance of the class
+		getInstance: function () {
+			if (!instance) {
+				instance = init()
+			}
+			return instance
 		},
-		publicData: 'This is public data',
 	}
 })()
 
-// console.log('my Module', myModule)
-// // Using the module
-// myModule.publicMethod() // Outputs "This is a private function" and "This is a public method"
-// console.log(myModule.publicData) // Outputs "This is public data"
-// console.log(myModule.privateData) // Outputs undefined (private data is not accessible)
-// myModule.privateFunction() // Throws an error (private functions are not accessible)
+// Usage
+const instance1 = Singleton.getInstance()
+// const instance2 = Singleton.getInstance()
 
-// export default myModule
+// console.log(instance1 === instance2) // Should print true since instance1 and instance2 are the same object
 
-// Code reuse, inheritance templates
-
-// Parent class
-
-class Animal {
-	constructor(name) {
-		this.name = name
-	}
-
-	// Method of the parent class
-	speak() {
-		console.log(`${this.name} makes a sound`)
-	}
-
-	getAnimalName() {
-		console.log('name is', this.name)
-	}
-}
-
-export default Animal
+instance1.publicMethod() // Call public method
+// console.log(instance1.publicVariable) // Access public variable
+console.log(instance1.getPrivateVariable()) // Access private variable via method
