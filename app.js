@@ -1,45 +1,68 @@
-'use strict'
-
-const Singleton = (function () {
-	let instance
-
-	function init() {
-		// Private method and variable of the class
-		function privateMethod() {
-			console.log('This is a private method')
-		}
-
-		let privateVariable = 'This is a private variable.'
-
-		return {
-			// Public method and variable of the class
-			publicMethod: function () {
-				privateMethod()
-			},
-			publicVariable: 'This is a public variable.',
-			getPrivateVariable: function () {
-				return privateVariable
-			},
-		}
+class Car {
+	constructor(options) {
+		this.doors = options.doors || 4
+		this.color = options.color || 'black'
+		this.brand = options.brand || 'Unknown'
 	}
 
-	return {
-		// Method to get the single instance of the class
-		getInstance: function () {
-			if (!instance) {
-				instance = init()
-			}
-			return instance
-		},
+	start() {
+		console.log(`Starting the ${this.brand}`)
 	}
-})()
 
-// Usage
-const instance1 = Singleton.getInstance()
-// const instance2 = Singleton.getInstance()
+	stop() {
+		console.log(`Stopping the ${this.brand}`)
+	}
+}
 
-// console.log(instance1 === instance2) // Should print true since instance1 and instance2 are the same object
+class Suv extends Car {
+	constructor(options) {
+		super(options)
+	}
 
-instance1.publicMethod() // Call public method
-// console.log(instance1.publicVariable) // Access public variable
-console.log(instance1.getPrivateVariable()) // Access private variable via method
+	startEngine() {
+		console.log(`Starting the engine of ${this.brand} SUV`)
+	}
+}
+
+class Sedan extends Car {
+	constructor(options) {
+		super(options)
+	}
+
+	startBattery() {
+		console.log(`Starting the battery of ${this.brand} Sedan`)
+	}
+}
+
+class CarFactory {
+	createCar(options) {
+		switch (options.type) {
+			case 'SUV':
+				return new Suv(options)
+			case 'Sedan':
+				return new Sedan(options)
+			case 'Truck':
+				options.doors = 2
+				options.color = 'white'
+				options.brand = 'Ford'
+				return new Car(options)
+			default:
+				return new Car(options)
+		}
+	}
+}
+
+// Usage:
+const factory = new CarFactory()
+
+const suv = factory.createCar({ type: 'SUV', brand: 'Toyota' })
+const sedan = factory.createCar({ type: 'Sedan', brand: 'Honda' })
+
+console.log(suv)
+console.log(sedan)
+
+suv.start()
+suv.startEngine()
+
+sedan.start()
+sedan.startBattery()
