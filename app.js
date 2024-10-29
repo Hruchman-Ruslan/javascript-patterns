@@ -1,56 +1,36 @@
-// Підсистема
-class Engine {
-	start() {
-		console.log('Engine started')
-	}
-	stop() {
-		console.log('Engine stopped')
+// Original object to which we will create a proxy
+class RealSubject {
+	request() {
+		console.log('RealSubject: Processing request.')
 	}
 }
 
-class Lights {
-	turnOn() {
-		console.log('Lights turned on')
-	}
-	turnOff() {
-		console.log('Lights turned off')
-	}
-}
-
-class FuelInjector {
-	inject() {
-		console.log('Fuel injected')
-	}
-}
-
-// Facade
-class CarFacade {
-	constructor() {
-		this.engine = new Engine()
-		this.lights = new Lights()
-		this.fuelInjector = new FuelInjector()
+// Proxy for RealSubject
+class ProxySubject {
+	constructor(realSubject) {
+		this.realSubject = realSubject
 	}
 
-	startCar() {
-		this.engine.start()
-		this.lights.turnOn()
-		this.fuelInjector.inject()
-		console.log('Car started successfully')
+	// Method that intercepts the call to RealSubject
+	request() {
+		if (this.checkAccess()) {
+			this.realSubject.request()
+		} else {
+			console.log('ProxySubject: Access denied.')
+		}
 	}
-	stopCar() {
-		this.engine.stop()
-		this.lights.turnOff()
-		console.log('Car stopped')
+
+	// Checking access to RealSubject
+	checkAccess() {
+		console.log('ProxySubject: Checking access...')
+		return true
 	}
 }
 
 // Using
-const car = new CarFacade()
 
-// Starting car
-car.startCar()
+const realSubject = new RealSubject()
+const proxy = new ProxySubject(realSubject)
 
-console.log('-----------------------------------')
-
-// Stopped car
-car.stopCar()
+// Calling the proxy
+proxy.request()
