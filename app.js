@@ -1,68 +1,56 @@
-class Car {
-	constructor(options) {
-		this.doors = options.doors || 4
-		this.color = options.color || 'black'
-		this.brand = options.brand || 'Unknown'
-	}
-
+// Підсистема
+class Engine {
 	start() {
-		console.log(`Starting the ${this.brand}`)
+		console.log('Engine started')
 	}
-
 	stop() {
-		console.log(`Stopping the ${this.brand}`)
+		console.log('Engine stopped')
 	}
 }
 
-class Suv extends Car {
-	constructor(options) {
-		super(options)
+class Lights {
+	turnOn() {
+		console.log('Lights turned on')
 	}
-
-	startEngine() {
-		console.log(`Starting the engine of ${this.brand} SUV`)
-	}
-}
-
-class Sedan extends Car {
-	constructor(options) {
-		super(options)
-	}
-
-	startBattery() {
-		console.log(`Starting the battery of ${this.brand} Sedan`)
+	turnOff() {
+		console.log('Lights turned off')
 	}
 }
 
-class CarFactory {
-	createCar(options) {
-		switch (options.type) {
-			case 'SUV':
-				return new Suv(options)
-			case 'Sedan':
-				return new Sedan(options)
-			case 'Truck':
-				options.doors = 2
-				options.color = 'white'
-				options.brand = 'Ford'
-				return new Car(options)
-			default:
-				return new Car(options)
-		}
+class FuelInjector {
+	inject() {
+		console.log('Fuel injected')
 	}
 }
 
-// Usage:
-const factory = new CarFactory()
+// Facade
+class CarFacade {
+	constructor() {
+		this.engine = new Engine()
+		this.lights = new Lights()
+		this.fuelInjector = new FuelInjector()
+	}
 
-const suv = factory.createCar({ type: 'SUV', brand: 'Toyota' })
-const sedan = factory.createCar({ type: 'Sedan', brand: 'Honda' })
+	startCar() {
+		this.engine.start()
+		this.lights.turnOn()
+		this.fuelInjector.inject()
+		console.log('Car started successfully')
+	}
+	stopCar() {
+		this.engine.stop()
+		this.lights.turnOff()
+		console.log('Car stopped')
+	}
+}
 
-console.log(suv)
-console.log(sedan)
+// Using
+const car = new CarFacade()
 
-suv.start()
-suv.startEngine()
+// Starting car
+car.startCar()
 
-sedan.start()
-sedan.startBattery()
+console.log('-----------------------------------')
+
+// Stopped car
+car.stopCar()
