@@ -1,36 +1,25 @@
-// Original object to which we will create a proxy
-class RealSubject {
-	request() {
-		console.log('RealSubject: Processing request.')
+// Base class representing an object to which functionality will be added
+class Car {
+	getPrice() {
+		return 10000
 	}
 }
 
-// Proxy for RealSubject
-class ProxySubject {
-	constructor(realSubject) {
-		this.realSubject = realSubject
+// Concrete decorator that adds functionality "car with climate control"
+class CarWithClimateControl extends Car {
+	constructor(car) {
+		super(car)
 	}
 
-	// Method that intercepts the call to RealSubject
-	request() {
-		if (this.checkAccess()) {
-			this.realSubject.request()
-		} else {
-			console.log('ProxySubject: Access denied.')
-		}
-	}
-
-	// Checking access to RealSubject
-	checkAccess() {
-		console.log('ProxySubject: Checking access...')
-		return true
+	getPrice() {
+		return super.getPrice() + 2000 // Additional cost for climate control
 	}
 }
 
-// Using
+// Usage:
 
-const realSubject = new RealSubject()
-const proxy = new ProxySubject(realSubject)
+const basicCar = new Car()
+console.log('Basic car price:', basicCar.getPrice())
 
-// Calling the proxy
-proxy.request()
+const carWithClimateControl = new CarWithClimateControl(basicCar)
+console.log('Car with climate control price:', carWithClimateControl.getPrice())
