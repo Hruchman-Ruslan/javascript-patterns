@@ -1,43 +1,66 @@
-// A class that uses a strategy
-class Context {
-	constructor(strategy) {
-		this.strategy = strategy
+// Mediator that coordinates interaction between objects
+class Mediator {
+	constructor() {
+		this.colleague1 = null
+		this.colleague2 = null
 	}
 
-	// A method that establishes a new strategy
-	setStrategy(strategy) {
-		this.strategy = strategy
+	setColleague1(colleague) {
+		this.colleague1 = colleague
 	}
 
-	// A method that performs an action according to a strategy
-	executedStrategy() {
-		return this.strategy.execute()
+	setColleague2(colleague) {
+		this.colleague2 = colleague
 	}
-}
 
-// Interface strategy
-class Strategy {
-	execute() {}
-}
-
-// Concrete strategy №1
-class ConcreteStrategy1 extends Strategy {
-	execute() {
-		console.log('Executing strategy 1')
+	send(message, colleague) {
+		if (colleague === this.colleague1) {
+			this.colleague2.receive(message)
+		} else if (colleague === this.colleague2) {
+			this.colleague1.receive(message)
+		}
 	}
 }
 
-// Concrete strategy №2
-class ConcreteStrategy2 extends Strategy {
-	execute() {
-		console.log('Executing strategy 2')
+// Colleague1
+class Colleague1 {
+	constructor(mediator) {
+		this.mediator = mediator
+	}
+
+	send(message) {
+		this.mediator.send(message, this)
+	}
+
+	receive(message) {
+		console.log('Colleague 1 received:', message)
+	}
+}
+
+// Colleague2
+class Colleague2 {
+	constructor(mediator) {
+		this.mediator = mediator
+	}
+
+	send(message) {
+		this.mediator.send(message, this)
+	}
+
+	receive(message) {
+		console.log('Colleague 2 received:', message)
 	}
 }
 
 // Usage:
 
-const context = new Context(new ConcreteStrategy1())
-console.log(context.executedStrategy()) // Usage strategy №1
+const mediator = new Mediator()
 
-context.setStrategy(new ConcreteStrategy2())
-console.log(context.executedStrategy()) // Usage strategy №2
+const colleague1 = new Colleague1(mediator)
+const colleague2 = new Colleague2(mediator)
+
+mediator.setColleague1(colleague1)
+mediator.setColleague2(colleague2)
+
+colleague1.send('Hello from Colleague 1!')
+colleague2.send('Hi from Colleague 2!')
