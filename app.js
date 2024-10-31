@@ -1,66 +1,55 @@
-// Mediator that coordinates interaction between objects
-class Mediator {
+// Class that displays the event
+class Subject {
 	constructor() {
-		this.colleague1 = null
-		this.colleague2 = null
+		this.observers = [] // Array of observers
 	}
 
-	setColleague1(colleague) {
-		this.colleague1 = colleague
+	// Adding an observer
+	addObserver(observer) {
+		this.observers.push(observer)
 	}
 
-	setColleague2(colleague) {
-		this.colleague2 = colleague
+	// Remove the watcher
+	removeObserver(observer) {
+		this.observers = this.observers.filter(obs => obs !== observer)
 	}
 
-	send(message, colleague) {
-		if (colleague === this.colleague1) {
-			this.colleague2.receive(message)
-		} else if (colleague === this.colleague2) {
-			this.colleague1.receive(message)
-		}
+	// Sending a message to all observers
+	notify(message) {
+		this.observers.forEach(observer => observer.update(message))
 	}
 }
 
-// Colleague1
-class Colleague1 {
-	constructor(mediator) {
-		this.mediator = mediator
+// Class that displays the observer
+class Observer {
+	constructor(name) {
+		this.name = name
 	}
 
-	send(message) {
-		this.mediator.send(message, this)
-	}
-
-	receive(message) {
-		console.log('Colleague 1 received:', message)
-	}
-}
-
-// Colleague2
-class Colleague2 {
-	constructor(mediator) {
-		this.mediator = mediator
-	}
-
-	send(message) {
-		this.mediator.send(message, this)
-	}
-
-	receive(message) {
-		console.log('Colleague 2 received:', message)
+	// The method that is called when notifications are received
+	update(message) {
+		console.log(`${this.name} received message: ${message}`)
 	}
 }
 
 // Usage:
 
-const mediator = new Mediator()
+const subject = new Subject()
 
-const colleague1 = new Colleague1(mediator)
-const colleague2 = new Colleague2(mediator)
+const observer1 = new Observer('Observer 1')
+const observer2 = new Observer('Observer 2')
 
-mediator.setColleague1(colleague1)
-mediator.setColleague2(colleague2)
+// Adding an observer
+subject.addObserver(observer1)
+subject.addObserver(observer2)
 
-colleague1.send('Hello from Colleague 1!')
-colleague2.send('Hi from Colleague 2!')
+// Sending message
+subject.notify('Hello from Subject!')
+
+console.log('-----------------------------------------')
+
+// Remove observer
+subject.removeObserver(observer1)
+
+// Repeated sending message
+subject.notify('Hello again from Subject!')
