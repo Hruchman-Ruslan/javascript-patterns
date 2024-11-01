@@ -1,8 +1,23 @@
-const elementsButton = {
-	firstElement: document.getElementById('myButton'),
-	secondElement: document.getElementById('myButton2'),
+const elementButtons = {
+	secondButton: document.getElementById('myButton2'),
 }
 
-const { firstElement, secondElement } = elementsButton
-firstElement.addEventListener('click', () => console.log('myButton click'))
-secondElement.addEventListener('click', () => console.log('myButton2 click'))
+const { secondButton } = elementButtons
+
+class UIComponent {
+	constructor(elementId) {
+		this.element = document.getElementById(elementId)
+	}
+
+	show() {
+		this.element.style.display = 'block'
+	}
+
+	hide() {
+		this.element.style.display = 'none'
+	}
+}
+
+const buttonToggle = new UIComponent('myButton')
+
+secondButton.addEventListener('click', () => buttonToggle.hide())
