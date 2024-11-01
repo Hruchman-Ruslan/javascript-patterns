@@ -1,7 +1,8 @@
 const list = document.getElementById('myList')
-list.addEventListener('click', event => {
-	console.log(event.currentTarget)
-	if (event.target.tagName === 'LI') {
-		console.log('Clicked on:', event.target.textContent)
-	}
+const items = ['Item 1', 'Item 2', 'Item 3']
+
+items.forEach(item => {
+	const li = document.createElement('li')
+	li.textContent = item
+	list.appendChild(li)
 })
