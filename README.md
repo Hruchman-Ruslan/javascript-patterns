@@ -10,3 +10,5 @@ This project covers essential JavaScript concepts, including custom constructors
 - Set and Map Data Structures
 
 This project is a great starting point for mastering fundamental JavaScript concepts.
+
+To explore specific topics, you can switch branches and view each section by commits. This setup allows you to focus on the concepts that interest you most.

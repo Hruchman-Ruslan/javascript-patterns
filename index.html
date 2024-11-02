@@ -10,24 +10,6 @@
 		<button onclick="startWorker()">Start Worker</button>
 		<p id="result"></p>
 
-		<script>
-			function startWorker() {
-				if (typeof Worker !== 'undefined') {
-					// Create Worker
-					const worker = new Worker('worker.js')
-
-					// Send a message to web worker
-					worker.postMessage('Hello')
-
-					// Process a message from a web worker
-					worker.onmessage = function (event) {
-						document.getElementById('result').innerHTML = event.data
-					}
-				} else {
-					document.getElementById('result').innerHTML =
-						'Web Workers not supported!'
-				}
-			}
-		</script>
+		<script defer src="./worker.js"></script>
 	</body>
 </html>
